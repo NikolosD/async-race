@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input } from 'antd'
+import { Button, ColorPicker, Input } from 'antd'
 
 import s from './asyncRace.module.scss'
 export function AsyncRace() {
@@ -19,15 +19,15 @@ export function AsyncRace() {
             </Button>
           </div>
           <div className={s.form}>
-            <Input style={{ width: '100px' }} />
-            <Checkbox />
+            <Input />
+            <ColorPicker />
             <Button danger type={'primary'}>
               Create
             </Button>
           </div>
           <div className={s.form}>
-            <Input style={{ width: '100px' }} />
-            <Checkbox />
+            <Input />
+            <ColorPicker />
             <Button danger type={'primary'}>
               Update
             </Button>

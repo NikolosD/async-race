@@ -1,9 +1,5 @@
 module.exports = {
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'airbnb-typescript'
-  ],
+  extends: ['airbnb', 'airbnb/hooks', 'airbnb-typescript', 'plugin:storybook/recommended'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

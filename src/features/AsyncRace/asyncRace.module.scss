@@ -1,0 +1,29 @@
+.container{
+  padding: 80px 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.menu{
+  display: flex;
+  flex-direction: column;
+  max-width:200px;
+  gap: 20px;
+}
+
+.settings{
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.startReset{
+  display: flex;
+  gap: 20px;
+}
+
+.form{
+  display: flex;
+  gap: 20px;
+}

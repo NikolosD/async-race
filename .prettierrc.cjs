@@ -1,3 +1,4 @@
 module.exports = {
-    ...require('eslint-config-airbnb-base/.prettierrc'),
-};
+    ...require('@it-incubator/prettier-config'),
+    //override settings here
+}

@@ -1,3 +1,3 @@
 module.exports = {
-    extends: 'stylelint-config-airbnb',
-};
+    extends: '@it-incubator/stylelint-config',
+}

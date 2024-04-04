@@ -5,6 +5,9 @@
   height: 100vh;
 }
 
+
+
+
 .menu{
   display: flex;
   flex-direction: column;
@@ -16,7 +19,19 @@
   margin-top: 80px;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
+
+.settings::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+  width: 100%;
+  position: absolute;
+  bottom: -20px;
+}
+
 
 .startReset{
   display: flex;

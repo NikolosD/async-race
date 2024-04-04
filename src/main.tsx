@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AsyncRace } from '@/features/AsyncRace'
+import App from '@/App'
 import ReactDOM from 'react-dom/client'
 
 import './styles/index.scss'
@@ -9,6 +9,6 @@ import '@fontsource/roboto/700.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AsyncRace />
+    <App />
   </React.StrictMode>
 )

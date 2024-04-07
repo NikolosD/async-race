@@ -1,8 +1,8 @@
-import { CustomInput } from '@/components/settings/customInput'
-import StartReset from '@/components/settings/startReset'
+import { CustomInput } from '@/components/garage/settings/customInput'
+import StartReset from '@/components/garage/settings/startReset'
 import { Button } from 'antd'
 
-import s from '@/features/AsyncRace/asyncRace.module.scss'
+import s from '@/features/garage/garage.module.scss'
 
 export const Settings = () => {
   return (

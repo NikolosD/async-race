@@ -1,6 +1,6 @@
 import { Button } from 'antd'
 
-import s from '@/features/AsyncRace/asyncRace.module.scss'
+import s from '@/features/garage/garage.module.scss'
 
 const StartReset = () => {
   return (

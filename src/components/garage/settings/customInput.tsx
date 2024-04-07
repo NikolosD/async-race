@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from 'react'
 
 import { Button, ColorPicker, Input } from 'antd'
 
-import s from '@/features/AsyncRace/asyncRace.module.scss'
+import s from '@/features/garage/garage.module.scss'
 
 type Props = {
   name: string

@@ -1,4 +1,4 @@
-import { Menu } from '@/components/settings/menu/menu'
+import { Menu } from '@/components/menu/menu'
 
 type Props = {}
 

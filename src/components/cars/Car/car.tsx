@@ -8,12 +8,16 @@ export const Car = () => {
     <>
       <div className={s.container}>
         <div className={s.selectRemovePanel}>
-          <Button>Select</Button>
-          <Button>Remove</Button>
+          <Button type={'primary'}>Select</Button>
+          <Button danger type={'primary'}>
+            Remove
+          </Button>
         </div>
         <div className={s.startStop}>
-          <Button>A</Button>
-          <Button>B</Button>
+          <Button type={'primary'}>A</Button>
+          <Button danger type={'primary'}>
+            B
+          </Button>
         </div>
         <div className={s.car}>
           <IoCarSport size={40} />

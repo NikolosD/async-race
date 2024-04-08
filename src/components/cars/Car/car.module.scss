@@ -17,3 +17,15 @@
   justify-content: center;
   align-self: center;
 }
+
+.name{
+  display: flex;
+  font-size: 24px;
+  justify-content: center;
+  align-self: center;
+  margin-left: 40px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-decoration:underline;
+  text-decoration-style: dotted;
+}

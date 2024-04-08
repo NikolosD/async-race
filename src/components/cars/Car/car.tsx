@@ -3,7 +3,13 @@ import { IoCarSport } from 'react-icons/io5'
 
 import s from './car.module.scss'
 
-export const Car = () => {
+type CarProps = {
+  color: string
+  id: number
+  name: string
+}
+
+export const Car = ({ color, name }: CarProps) => {
   return (
     <>
       <div className={s.container}>
@@ -20,8 +26,9 @@ export const Car = () => {
           </Button>
         </div>
         <div className={s.car}>
-          <IoCarSport size={40} />
+          <IoCarSport color={color} size={40} />
         </div>
+        <div className={s.name}>{name}</div>
       </div>
     </>
   )

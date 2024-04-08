@@ -9,16 +9,21 @@ import { fetchCars } from '@/components/cars/cars.reducer'
 export const Cars = () => {
   const dispatch = useAppDispatch()
   const selectCars = (state: RootState) => state.cars
-  const cars = useSelector(selectCars)
+  const { cars, currentPage, pageSize } = useSelector(selectCars)
 
   useEffect(() => {
-    dispatch(fetchCars()) // Диспатчим санку для получения машин
+    dispatch(fetchCars())
   }, [dispatch])
+
+  const indexOfLastCar = currentPage * pageSize
+  const indexOfFirstCar = indexOfLastCar - pageSize
+
+  const currentCars = cars.slice(indexOfFirstCar, indexOfLastCar)
 
   return (
     <>
       <div>
-        {cars.cars.map(car => (
+        {currentCars.map(car => (
           <Car color={car.color} id={car.id} key={car.id} name={car.name} />
         ))}
       </div>

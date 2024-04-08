@@ -1,5 +1,5 @@
 import { carsApi } from '@/common/api/cars.api'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface CarType {
   color: string
@@ -9,10 +9,16 @@ export interface CarType {
 
 interface CarsState {
   cars: CarType[]
+  currentPage: number
+  pageSize: number
+  totalCarsCount: number
 }
 
 const initialState: CarsState = {
   cars: [],
+  currentPage: 1,
+  pageSize: 7,
+  totalCarsCount: 1,
 }
 
 export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
@@ -22,29 +28,28 @@ export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
 const slice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchCars.fulfilled, (state, action) => {
-      state.cars = action.payload.map(car => ({
-        ...car,
-      }))
+      state.cars = action.payload
+      state.totalCarsCount = action.payload.length
     })
   },
   initialState,
   name: 'cars',
   reducers: {
     generateCars: state => {
-      const cars: CarType[] = []
+      const newCars: CarType[] = []
 
       for (let i = 0; i < 100; i++) {
         const randomColor = getRandomColor()
         const randomName = getRandomName()
-        const randomId = i + 1
+        const randomId = state.totalCarsCount + i + 1
 
-        cars.push({ color: randomColor, id: randomId, name: randomName })
+        newCars.push({ color: randomColor, id: randomId, name: randomName })
       }
-
-      return {
-        ...state,
-        cars: cars,
-      }
+      state.cars.push(...newCars)
+      state.totalCarsCount += newCars.length
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload
     },
   },
 })
@@ -61,4 +66,4 @@ function getRandomName(): string {
 }
 
 export const carsReducer = slice.reducer
-export const { generateCars } = slice.actions
+export const { generateCars, setCurrentPage } = slice.actions

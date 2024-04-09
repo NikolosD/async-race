@@ -1,6 +1,5 @@
-// Define the response shape for the cars API
 import { instance } from '@/common/api/common.api'
-import { CarType } from '@/components/cars/cars.reducer'
+import { CarType } from '@/common/components/cars/cars.reducer'
 
 export interface CarsApiResponse {
   data: CarType[]

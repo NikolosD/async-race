@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
-import { CustomPagination } from '@/components/garage/garageFooter/pagination/customPagination'
+import { CustomPagination } from '@/common/components/garage/garageFooter/pagination/customPagination'
 
 import s from './garageFooter.module.scss'
 

@@ -1,15 +1,16 @@
-import { carsApi } from '@/common/api/cars.api'
+import { carsApi } from '@/common/components/cars/cars.api'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export interface CarType {
+export type CarType = {
   color: string
   id: number
   name: string
 }
 
-interface CarsState {
+type CarsState = {
   cars: CarType[]
   currentPage: number
+  isLoading: boolean
   pageSize: number
   totalCarsCount: number
 }
@@ -17,13 +18,28 @@ interface CarsState {
 const initialState: CarsState = {
   cars: [],
   currentPage: 1,
+  isLoading: false,
   pageSize: 7,
   totalCarsCount: 1,
 }
 
-export const fetchCars = createAsyncThunk('cars/fetchCars', async () => {
-  return await carsApi.getCars()
-})
+export const fetchCars = createAsyncThunk(
+  'cars/fetchCars',
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(setLoading(true))
+      const response = await carsApi.getCars()
+
+      dispatch(setLoading(false))
+
+      return response
+    } catch (error: any) {
+      dispatch(setLoading(false))
+
+      return rejectWithValue(error.message)
+    }
+  }
+)
 
 const slice = createSlice({
   extraReducers: builder => {
@@ -51,6 +67,9 @@ const slice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
     },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload
+    },
   },
 })
 
@@ -66,4 +85,4 @@ function getRandomName(): string {
 }
 
 export const carsReducer = slice.reducer
-export const { generateCars, setCurrentPage } = slice.actions
+export const { generateCars, setCurrentPage, setLoading } = slice.actions

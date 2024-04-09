@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
-import { setCurrentPage } from '@/components/cars/cars.reducer'
+import { setCurrentPage } from '@/common/components/cars/cars.reducer'
 // import { setCurrentPage } from '@/components/cars/cars.reducer'
 import { Pagination } from 'antd'
 

@@ -1,4 +1,4 @@
-import { carsReducer } from '@/components/cars/cars.reducer'
+import { carsReducer } from '@/common/components/cars/cars.reducer'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({

@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { NotFoundPage } from '@/components/notfoundpage'
-import { Winners } from '@/components/winners/winners'
+import { NotFoundPage } from '@/common/components/notfoundpage'
+import { Winners } from '@/common/components/winners/winners'
 import { Garage } from '@/features/garage/garage'
 
 function App() {

@@ -3,7 +3,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type CarType = {
   color: string
-  id: number
+  id?: number
   name: string
 }
 
@@ -41,12 +41,35 @@ export const fetchCars = createAsyncThunk(
   }
 )
 
+export const createCar = createAsyncThunk(
+  'cars/createCar',
+  async (newCar: CarType, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(setLoading(true))
+      const response = await carsApi.createCar(newCar)
+
+      dispatch(setLoading(false))
+
+      return response
+    } catch (error: any) {
+      dispatch(setLoading(false))
+
+      return rejectWithValue(error.message)
+    }
+  }
+)
+
 const slice = createSlice({
   extraReducers: builder => {
-    builder.addCase(fetchCars.fulfilled, (state, action) => {
-      state.cars = action.payload
-      state.totalCarsCount = action.payload.length
-    })
+    builder
+      .addCase(fetchCars.fulfilled, (state, action) => {
+        state.cars = action.payload
+        state.totalCarsCount = action.payload.length
+      })
+      .addCase(createCar.fulfilled, (state, action) => {
+        state.cars.push(action.payload)
+        state.totalCarsCount += 1
+      })
   },
   initialState,
   name: 'cars',

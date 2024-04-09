@@ -1,5 +1,8 @@
-import { generateCars } from '@/common/components/cars/cars.reducer'
-import { CustomInput } from '@/common/components/garage/settings/customInput'
+import { useState } from 'react'
+
+import { createCar, generateCars } from '@/common/components/cars/cars.reducer'
+import { CustomColorPickerComponent } from '@/common/components/customColorPicker/customColorPicker'
+import { CustomTextInput } from '@/common/components/customTextInput/customTextInput'
 import StartReset from '@/common/components/garage/settings/startReset'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { Button } from 'antd'
@@ -9,20 +12,58 @@ import s from '@/features/garage/garage.module.scss'
 export const Settings = () => {
   const dispatch = useAppDispatch()
 
+  const [createCarValue, setCreateCarValueValue] = useState('')
+  const [updateCarValueValue, setUpdateCarValueValueValue] = useState('')
+  const [selectedColor, setSelectedColor] = useState('#000000')
+
   const handleGenerateCars = () => {
     dispatch(generateCars())
   }
 
+  const handleCreateCar = async () => {
+    await dispatch(createCar({ color: selectedColor, name: createCarValue }))
+    setCreateCarValueValue('')
+    setSelectedColor('#000000')
+  }
+
+  const handleUpdate = () => {}
+
   return (
-    <>
-      <div className={s.settings}>
-        <StartReset />
-        <CustomInput name={'Create'} placeholder={'TYPE CAR BRAND'} />
-        <CustomInput name={'Update'} placeholder={'TYPE CAR BRAND'} />
-        <Button onClick={handleGenerateCars} type={'primary'}>
-          Generate Cars
+    <div className={s.settings}>
+      <StartReset />
+      <div className={s.form}>
+        <CustomTextInput
+          onChange={value => setCreateCarValueValue(value)}
+          placeholder={'TYPE CAR BRAND'}
+          value={createCarValue}
+        />
+        <CustomColorPickerComponent
+          color={selectedColor}
+          defaultValue={'#000000'}
+          onChange={color => setSelectedColor(color)}
+        />
+        <Button danger onClick={handleCreateCar} type={'primary'}>
+          Create
         </Button>
       </div>
-    </>
+      <div className={s.form}>
+        <CustomTextInput
+          onChange={value => setUpdateCarValueValueValue(value)}
+          placeholder={'TYPE CAR BRAND'}
+          value={updateCarValueValue}
+        />
+        <CustomColorPickerComponent
+          color={selectedColor}
+          defaultValue={'#000000'}
+          onChange={color => setSelectedColor(color)}
+        />
+        <Button danger onClick={handleUpdate} type={'primary'}>
+          Update
+        </Button>
+      </div>
+      <Button onClick={handleGenerateCars} type={'primary'}>
+        Generate Cars
+      </Button>
+    </div>
   )
 }

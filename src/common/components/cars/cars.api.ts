@@ -5,14 +5,13 @@ export interface CarsApiResponse {
   data: CarType[]
 }
 
-// Define the response shape for a single car API
 export interface CarApiResponse {
   data: CarType
 }
 
 export const carsApi = {
-  createCar(carData: CarType): Promise<CarType> {
-    return instance.post('/garage', carData).then(response => response.data.data)
+  createCar(carData: CarType) {
+    return instance.post('/garage', carData).then(response => response.data)
   },
 
   deleteCar(carId: number): Promise<void> {
@@ -24,6 +23,6 @@ export const carsApi = {
   },
 
   updateCar(carId: number, carData: CarType): Promise<CarType> {
-    return instance.put(`/garage/${carId}`, carData).then(response => response.data.data)
+    return instance.put(`/garage/${carId}`, carData).then(response => response.data)
   },
 }

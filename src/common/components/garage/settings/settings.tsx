@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import { createCar, generateCars } from '@/common/components/cars/cars.reducer'
+import { RootState } from '@/app/store'
+import { createCar, generateCars, updateCar } from '@/common/components/cars/cars.reducer'
 import { CustomColorPickerComponent } from '@/common/components/customColorPicker/customColorPicker'
 import { CustomTextInput } from '@/common/components/customTextInput/customTextInput'
 import StartReset from '@/common/components/garage/settings/startReset'
@@ -12,9 +14,11 @@ import s from '@/features/garage/garage.module.scss'
 export const Settings = () => {
   const dispatch = useAppDispatch()
 
+  const selectedCarId = useSelector((state: RootState) => state.cars.selectedCarId)
   const [createCarValue, setCreateCarValueValue] = useState('')
   const [updateCarValueValue, setUpdateCarValueValueValue] = useState('')
   const [selectedColor, setSelectedColor] = useState('#000000')
+  const [updateSelectedColor, setUpdateSelectedColor] = useState('#000000')
 
   const handleGenerateCars = () => {
     dispatch(generateCars())
@@ -26,7 +30,11 @@ export const Settings = () => {
     setSelectedColor('#000000')
   }
 
-  const handleUpdate = () => {}
+  const handleUpdateCar = async () => {
+    await dispatch(
+      updateCar({ color: updateSelectedColor, id: selectedCarId, name: updateCarValueValue })
+    )
+  }
 
   return (
     <div className={s.settings}>
@@ -53,11 +61,11 @@ export const Settings = () => {
           value={updateCarValueValue}
         />
         <CustomColorPickerComponent
-          color={selectedColor}
+          color={updateSelectedColor}
           defaultValue={'#000000'}
-          onChange={color => setSelectedColor(color)}
+          onChange={color => setUpdateSelectedColor(color)}
         />
-        <Button danger onClick={handleUpdate} type={'primary'}>
+        <Button danger onClick={handleUpdateCar} type={'primary'}>
           Update
         </Button>
       </div>

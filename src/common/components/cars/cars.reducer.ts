@@ -3,7 +3,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type CarType = {
   color: string
-  id?: number
+  id?: number | undefined
   name: string
 }
 
@@ -12,6 +12,7 @@ type CarsState = {
   currentPage: number
   isLoading: boolean
   pageSize: number
+  selectedCarId: number
   totalCarsCount: number
 }
 
@@ -20,6 +21,7 @@ const initialState: CarsState = {
   currentPage: 1,
   isLoading: false,
   pageSize: 7,
+  selectedCarId: 0,
   totalCarsCount: 1,
 }
 
@@ -71,6 +73,21 @@ export const deleteCar = createAsyncThunk<{ id: number }, number>(
     }
   }
 )
+
+export const updateCar = createAsyncThunk<
+  { color: string; id: number; name: string },
+  { color: string; id: number; name: string },
+  { rejectValue: { errorMessage: string } }
+>('cars/updateCar', async (newCarData, { rejectWithValue }) => {
+  try {
+    const response = await carsApi.updateCar(newCarData)
+
+    return response.data
+  } catch (err: any) {
+    return rejectWithValue({ errorMessage: err.message })
+  }
+})
+
 const slice = createSlice({
   extraReducers: builder => {
     builder
@@ -89,6 +106,13 @@ const slice = createSlice({
           state.cars.splice(index, 1)
         }
       })
+      .addCase(updateCar.fulfilled, (state, action) => {
+        const index = state.cars.findIndex(car => car.id === action.payload.id)
+
+        if (index !== -1) {
+          state.cars[index] = action.payload
+        }
+      })
   },
   initialState,
   name: 'cars',
@@ -105,6 +129,9 @@ const slice = createSlice({
       }
       state.cars.push(...newCars)
       state.totalCarsCount += newCars.length
+    },
+    selectCar: (state, action) => {
+      state.selectedCarId = action.payload
     },
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
@@ -127,4 +154,4 @@ function getRandomName(): string {
 }
 
 export const carsReducer = slice.reducer
-export const { generateCars, setCurrentPage, setLoading } = slice.actions
+export const { generateCars, selectCar, setCurrentPage, setLoading } = slice.actions

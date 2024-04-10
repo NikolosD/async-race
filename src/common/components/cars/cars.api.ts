@@ -1,11 +1,11 @@
 import { instance } from '@/common/api/common.api'
 import { CarType } from '@/common/components/cars/cars.reducer'
 
-export interface CarsApiResponse {
+export type CarsApiResponse = {
   data: CarType[]
 }
 
-export interface CarApiResponse {
+export type CarApiResponse = {
   data: CarType
 }
 
@@ -22,7 +22,7 @@ export const carsApi = {
     return instance.get<CarType[]>('/garage').then(response => response.data)
   },
 
-  updateCar(carId: number, carData: CarType): Promise<CarType> {
-    return instance.put(`/garage/${carId}`, carData).then(response => response.data)
+  updateCar(carData: CarType) {
+    return instance.put(`/garage/${carData.id}`, { color: carData.color, name: carData.name })
   },
 }

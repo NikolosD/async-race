@@ -59,6 +59,18 @@ export const createCar = createAsyncThunk(
   }
 )
 
+export const deleteCar = createAsyncThunk<{ id: number }, number>(
+  'cars/deleteCar',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await carsApi.deleteCar(id)
+
+      return { id }
+    } catch (error: any) {
+      return rejectWithValue({ id, message: error.message })
+    }
+  }
+)
 const slice = createSlice({
   extraReducers: builder => {
     builder
@@ -69,6 +81,13 @@ const slice = createSlice({
       .addCase(createCar.fulfilled, (state, action) => {
         state.cars.push(action.payload)
         state.totalCarsCount += 1
+      })
+      .addCase(deleteCar.fulfilled, (state, action) => {
+        const index = state.cars.findIndex(todo => todo.id === action.payload.id)
+
+        if (index !== -1) {
+          state.cars.splice(index, 1)
+        }
       })
   },
   initialState,

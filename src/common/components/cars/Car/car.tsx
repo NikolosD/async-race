@@ -1,3 +1,5 @@
+import { deleteCar } from '@/common/components/cars/cars.reducer'
+import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { Button } from 'antd'
 import { IoCarSport } from 'react-icons/io5'
 
@@ -9,13 +11,19 @@ type CarProps = {
   name: string
 }
 
-export const Car = ({ color, name }: CarProps) => {
+export const Car = ({ color, id, name }: CarProps) => {
+  const dispatch = useAppDispatch()
+
+  const handleDelete = () => {
+    dispatch(deleteCar(id))
+  }
+
   return (
     <>
       <div className={s.container}>
         <div className={s.selectRemovePanel}>
           <Button type={'primary'}>Select</Button>
-          <Button danger type={'primary'}>
+          <Button danger onClick={handleDelete} type={'primary'}>
             Remove
           </Button>
         </div>

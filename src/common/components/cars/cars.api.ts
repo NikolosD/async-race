@@ -14,7 +14,7 @@ export const carsApi = {
     return instance.post('/garage', carData).then(response => response.data)
   },
 
-  deleteCar(carId: number): Promise<void> {
+  deleteCar(carId: number) {
     return instance.delete(`/garage/${carId}`).then(() => undefined)
   },
 

@@ -3,7 +3,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export type CarType = {
   color: string
-  id?: number | undefined
+  id: number
   name: string
 }
 

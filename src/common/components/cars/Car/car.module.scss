@@ -12,20 +12,30 @@
   margin-right: 5px;
 }
 
+.carContainer {
+  display: flex;
+  width: 100%;
+}
+
 .car {
   display: flex;
   justify-content: center;
   align-self: center;
+  position: relative;
+  z-index: 1;
 }
 
-.name{
+.name {
+  position: relative;
+  width: 100%;
+  text-align: start;
   display: flex;
   font-size: 24px;
-  justify-content: center;
   align-self: center;
+  padding-left: 40px;
   margin-left: 40px;
   text-transform: uppercase;
   letter-spacing: 5px;
-  text-decoration:underline;
+  text-decoration: underline;
   text-decoration-style: dotted;
 }

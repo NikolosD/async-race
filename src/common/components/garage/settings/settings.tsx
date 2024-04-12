@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
 import { createCar, generateCars, updateCar } from '@/common/components/cars/cars.reducer'
 import { CustomColorPickerComponent } from '@/common/components/customColorPicker/customColorPicker'
 import { CustomTextInput } from '@/common/components/customTextInput/customTextInput'
-import StartReset from '@/common/components/garage/settings/startReset'
+import { StartReset } from '@/common/components/garage/settings/startReset'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { Button } from 'antd'
 

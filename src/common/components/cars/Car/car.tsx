@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/app/store'
 import {
   setDistance,
+  setDuration,
   setPosition,
   setVelocity,
   switchToDriveMode,
@@ -20,6 +21,7 @@ export const Car = ({ color, id, name }: CarType) => {
   const currentPosition = car ? car.position : 0
   const currentVelocity = car ? car.velocity : 0
   const currentDistance = car ? car.distance : 0
+  const duration = car ? car.duration : 0
   const dispatch = useAppDispatch()
 
   const handleDelete = () => {
@@ -52,7 +54,7 @@ export const Car = ({ color, id, name }: CarType) => {
     dispatch(setPosition({ id, position: 0 }))
   }
 
-  const duration = currentDistance / currentVelocity
+  dispatch(setDuration({ distance: currentDistance, id, velocity: currentVelocity }))
 
   const style = {
     left: `${currentPosition}%`,

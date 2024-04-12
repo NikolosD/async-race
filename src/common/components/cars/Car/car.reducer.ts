@@ -6,6 +6,7 @@ type CarState = {
   [id: number]: {
     color: string
     distance: number
+    duration: number
     name: string
     position: number
     velocity: number
@@ -22,15 +23,23 @@ const slice = createSlice({
       const { distance, id } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
+        state[id] = { color: '', distance: 0, duration: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].distance = distance
+    },
+    setDuration(state, action: PayloadAction<{ distance: number; id: number; velocity: number }>) {
+      const { distance, id, velocity } = action.payload
+
+      if (!state[id]) {
+        state[id] = { color: '', distance: 0, duration: 0, name: '', position: 0, velocity: 0 }
+      }
+      state[id].duration = distance / velocity
     },
     setPosition(state, action: PayloadAction<{ id: number; position: number }>) {
       const { id, position } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
+        state[id] = { color: '', distance: 0, duration: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].position = position
     },
@@ -38,7 +47,7 @@ const slice = createSlice({
       const { id, velocity } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
+        state[id] = { color: '', distance: 0, duration: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].velocity = velocity
     },
@@ -77,4 +86,4 @@ export const switchToDriveMode = createAsyncThunk<{ id: number }, number, { reje
   }
 )
 export const carReducer = slice.reducer
-export const { setDistance, setPosition, setVelocity } = slice.actions
+export const { setDistance, setDuration, setPosition, setVelocity } = slice.actions

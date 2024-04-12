@@ -93,21 +93,14 @@ export const generateCars = createAsyncThunk(
   'cars/generateCars',
   async (_, { dispatch, getState }) => {
     const { totalCarsCount } = (getState() as RootState).cars
-    const newCars: CarType[] = []
 
     for (let i = 0; i < 100; i++) {
       const randomColor = getRandomColor()
       const randomName = getRandomName()
       const randomId = totalCarsCount + i + 1
 
-      newCars.push({ color: randomColor, id: randomId, name: randomName })
+      await dispatch(createCar({ color: randomColor, id: randomId, name: randomName }))
     }
-
-    for (const car of newCars) {
-      await dispatch(createCar(car))
-    }
-
-    return newCars
   }
 )
 
@@ -120,7 +113,6 @@ const slice = createSlice({
       })
       .addCase(createCar.fulfilled, (state, action) => {
         state.cars.push(action.payload)
-        state.totalCarsCount += 1
       })
       .addCase(deleteCar.fulfilled, (state, action) => {
         const index = state.cars.findIndex(todo => todo.id === action.payload.id)

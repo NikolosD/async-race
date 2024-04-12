@@ -45,7 +45,7 @@ const StartReset = () => {
   }
 
   const resetRace = () => {
-    const promises = cars.map(car => {
+    cars.map(car => {
       const id = car.id
 
       try {

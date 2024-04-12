@@ -1,3 +1,4 @@
+import { RootState } from '@/app/store'
 import { carsApi } from '@/common/components/cars/cars.api'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
@@ -88,6 +89,28 @@ export const updateCar = createAsyncThunk<
   }
 })
 
+export const generateCars = createAsyncThunk(
+  'cars/generateCars',
+  async (_, { dispatch, getState }) => {
+    const { totalCarsCount } = (getState() as RootState).cars
+    const newCars: CarType[] = []
+
+    for (let i = 0; i < 100; i++) {
+      const randomColor = getRandomColor()
+      const randomName = getRandomName()
+      const randomId = totalCarsCount + i + 1
+
+      newCars.push({ color: randomColor, id: randomId, name: randomName })
+    }
+
+    for (const car of newCars) {
+      await dispatch(createCar(car))
+    }
+
+    return newCars
+  }
+)
+
 const slice = createSlice({
   extraReducers: builder => {
     builder
@@ -113,23 +136,14 @@ const slice = createSlice({
           state.cars[index] = action.payload
         }
       })
+      .addCase(generateCars.fulfilled, (state, action) => {
+        state.cars.push(...action.payload)
+        state.totalCarsCount += action.payload.length
+      })
   },
   initialState,
   name: 'cars',
   reducers: {
-    generateCars: state => {
-      const newCars: CarType[] = []
-
-      for (let i = 0; i < 100; i++) {
-        const randomColor = getRandomColor()
-        const randomName = getRandomName()
-        const randomId = state.totalCarsCount + i + 1
-
-        newCars.push({ color: randomColor, id: randomId, name: randomName })
-      }
-      state.cars.push(...newCars)
-      state.totalCarsCount += newCars.length
-    },
     selectCar: (state, action) => {
       state.selectedCarId = action.payload
     },
@@ -154,4 +168,4 @@ function getRandomName(): string {
 }
 
 export const carsReducer = slice.reducer
-export const { generateCars, selectCar, setCurrentPage, setLoading } = slice.actions
+export const { selectCar, setCurrentPage, setLoading } = slice.actions

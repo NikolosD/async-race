@@ -24,19 +24,24 @@ const StartReset = () => {
 
       try {
         const response = await dispatch(toggleEngine({ id, status: 'started' }))
-
         const responseData = response.payload
 
-        dispatch(setVelocity({ id, velocity: responseData.velocity }))
         dispatch(setDistance({ distance: responseData.distance, id }))
+        dispatch(setVelocity({ id, velocity: responseData.velocity }))
+
         await dispatch(switchToDriveMode(id)).unwrap()
-        dispatch(setPosition({ id, position: 100 }))
+
+        return { id, position: 100 }
       } catch (error) {
-        dispatch(setPosition({ id, position: Math.random() * 80 }))
+        return { id, position: Math.random() * 80 }
       }
     })
 
-    await Promise.allSettled(promises)
+    const positions = await Promise.all(promises)
+
+    positions.forEach(({ id, position }) => {
+      dispatch(setPosition({ id, position }))
+    })
   }
 
   return (

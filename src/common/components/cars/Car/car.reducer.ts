@@ -5,10 +5,10 @@ import axios from 'axios'
 type CarState = {
   [id: number]: {
     color: string
-    isAnimating: boolean
+    distance: number
     name: string
     position: number
-    speed: number
+    velocity: number
   }
 }
 
@@ -18,36 +18,36 @@ const slice = createSlice({
   initialState,
   name: 'car',
   reducers: {
+    setDistance(state, action: PayloadAction<{ distance: number; id: number }>) {
+      const { distance, id } = action.payload
+
+      if (!state[id]) {
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
+      }
+      state[id].distance = distance
+    },
     setPosition(state, action: PayloadAction<{ id: number; position: number }>) {
       const { id, position } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', isAnimating: false, name: '', position: 0, speed: 5 }
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
       }
       state[id].position = position
     },
-    setSpeed(state, action: PayloadAction<{ id: number; speed: number }>) {
-      const { id, speed } = action.payload
+    setVelocity(state, action: PayloadAction<{ id: number; velocity: number }>) {
+      const { id, velocity } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', isAnimating: false, name: '', position: 0, speed: 5 }
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
       }
-      state[id].speed = speed
-    },
-    startAnimation(state, action: PayloadAction<{ id: number; isAnimating: boolean }>) {
-      const { id, isAnimating } = action.payload
-
-      if (!state[id]) {
-        state[id] = { color: '', isAnimating: false, name: '', position: 0, speed: 5 }
-      }
-      state[id].isAnimating = isAnimating
+      state[id].velocity = velocity
     },
   },
 })
 
 export const toggleEngine = createAsyncThunk(
   'car/toggleEngine',
-  async ({ id, status }: { id: number; status: 'started' | 'stopped' }) => {
+  async ({ id, status }: { id: number; status: 'started' | 'stopped' }, thunkAPI) => {
     try {
       const response = await carsApi.toggleEngine({ id, status })
 
@@ -77,4 +77,4 @@ export const switchToDriveMode = createAsyncThunk<{ id: number }, number, { reje
   }
 )
 export const carReducer = slice.reducer
-export const { setPosition, setSpeed, startAnimation } = slice.actions
+export const { setDistance, setPosition, setVelocity } = slice.actions

@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
 import {
+  setDistance,
   setPosition,
-  setSpeed,
-  startAnimation,
+  setVelocity,
   switchToDriveMode,
   toggleEngine,
 } from '@/common/components/cars/Car/car.reducer'
@@ -18,6 +18,8 @@ import s from './car.module.scss'
 export const Car = ({ color, id, name }: CarType) => {
   const car = useSelector((state: RootState) => state.car[id])
   const currentPosition = car ? car.position : 0
+  const currentVelocity = car ? car.velocity : 0
+  const currentDistance = car ? car.distance : 0
   const dispatch = useAppDispatch()
 
   const handleDelete = () => {
@@ -32,7 +34,12 @@ export const Car = ({ color, id, name }: CarType) => {
 
   const handleClickA = async () => {
     try {
-      await dispatch(toggleEngine({ id, status: 'started' }))
+      const response = await dispatch(toggleEngine({ id, status: 'started' }))
+      const responseData = response.payload
+
+      dispatch(setVelocity({ id, velocity: responseData.velocity }))
+      dispatch(setDistance({ distance: responseData.distance, id }))
+
       await dispatch(switchToDriveMode(id)).unwrap()
       dispatch(setPosition({ id, position: 100 }))
     } catch (error) {
@@ -43,8 +50,13 @@ export const Car = ({ color, id, name }: CarType) => {
   const handleClickB = () => {
     dispatch(toggleEngine({ id, status: 'stopped' }))
     dispatch(setPosition({ id, position: 0 }))
-    dispatch(setSpeed({ id, speed: 0 }))
-    dispatch(startAnimation({ id, isAnimating: false }))
+  }
+
+  const duration = currentDistance / currentVelocity
+
+  const style = {
+    left: `${currentPosition}%`,
+    transition: `left ${duration}ms linear`,
   }
 
   return (
@@ -66,10 +78,7 @@ export const Car = ({ color, id, name }: CarType) => {
         </Button>
       </div>
       <div className={s.carContainer}>
-        <div
-          className={s.car}
-          style={{ left: `${currentPosition}%`, transition: 'left 2s linear' }}
-        >
+        <div className={s.car} style={style}>
           <IoCarSport color={color} size={40} />
         </div>
         <div className={s.name}>{name}</div>

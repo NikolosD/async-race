@@ -22,7 +22,7 @@ const slice = createSlice({
       const { distance, id } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].distance = distance
     },
@@ -30,7 +30,7 @@ const slice = createSlice({
       const { id, position } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].position = position
     },
@@ -38,7 +38,7 @@ const slice = createSlice({
       const { id, velocity } = action.payload
 
       if (!state[id]) {
-        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 } // Исправлено
+        state[id] = { color: '', distance: 0, name: '', position: 0, velocity: 0 }
       }
       state[id].velocity = velocity
     },
@@ -47,7 +47,7 @@ const slice = createSlice({
 
 export const toggleEngine = createAsyncThunk(
   'car/toggleEngine',
-  async ({ id, status }: { id: number; status: 'started' | 'stopped' }, thunkAPI) => {
+  async ({ id, status }: { id: number; status: 'started' | 'stopped' }) => {
     try {
       const response = await carsApi.toggleEngine({ id, status })
 

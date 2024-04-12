@@ -25,7 +25,9 @@ export const Settings = () => {
   }
 
   const handleCreateCar = async () => {
-    await dispatch(createCar({ color: selectedColor, name: createCarValue }))
+    const randomId = Math.floor(Math.random() * 10000000)
+
+    await dispatch(createCar({ color: selectedColor, id: randomId, name: createCarValue }))
     setCreateCarValueValue('')
     setSelectedColor('#000000')
   }

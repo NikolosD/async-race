@@ -44,13 +44,26 @@ const StartReset = () => {
     })
   }
 
+  const resetRace = () => {
+    const promises = cars.map(car => {
+      const id = car.id
+
+      try {
+        dispatch(toggleEngine({ id, status: 'stopped' }))
+        dispatch(setPosition({ id, position: 0 }))
+      } catch (error) {
+        console.log(error)
+      }
+    })
+  }
+
   return (
     <>
       <div className={s.startReset}>
         <Button onClick={startRace} type={'primary'}>
           Race
         </Button>
-        <Button danger type={'primary'}>
+        <Button danger onClick={resetRace} type={'primary'}>
           Reset
         </Button>
       </div>

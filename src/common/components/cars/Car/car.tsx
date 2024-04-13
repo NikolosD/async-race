@@ -1,16 +1,10 @@
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
-import {
-  setDistance,
-  setDuration,
-  setPosition,
-  setVelocity,
-  switchToDriveMode,
-  toggleEngine,
-} from '@/common/components/cars/Car/car.reducer'
+import { setDuration } from '@/common/components/cars/Car/car.reducer'
 import { CarType, deleteCar, selectCar } from '@/common/components/cars/cars.reducer'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
+import { useHandleClick } from '@/common/hooks/useHandleClick'
 import { Button } from 'antd'
 import { IoCarSport } from 'react-icons/io5'
 
@@ -23,6 +17,8 @@ export const Car = ({ color, id, name }: CarType) => {
   const currentDistance = car ? car.distance : 0
   const duration = car ? car.duration : 0
   const dispatch = useAppDispatch()
+  const handleClickAa = useHandleClick(true, id)
+  const handleClickBb = useHandleClick(false, id)
 
   const handleDelete = () => {
     if (id != null) {
@@ -32,26 +28,6 @@ export const Car = ({ color, id, name }: CarType) => {
 
   const handleClick = () => {
     dispatch(selectCar(id))
-  }
-
-  const handleClickA = async () => {
-    try {
-      const response = await dispatch(toggleEngine({ id, status: 'started' }))
-      const responseData = response.payload
-
-      dispatch(setVelocity({ id, velocity: responseData.velocity }))
-      dispatch(setDistance({ distance: responseData.distance, id }))
-
-      await dispatch(switchToDriveMode(id)).unwrap()
-      dispatch(setPosition({ id, position: 100 }))
-    } catch (error) {
-      dispatch(setPosition({ id, position: Math.random() * 80 }))
-    }
-  }
-
-  const handleClickB = () => {
-    dispatch(toggleEngine({ id, status: 'stopped' }))
-    dispatch(setPosition({ id, position: 0 }))
   }
 
   dispatch(setDuration({ distance: currentDistance, id, velocity: currentVelocity }))
@@ -72,10 +48,10 @@ export const Car = ({ color, id, name }: CarType) => {
         </Button>
       </div>
       <div className={s.startStop}>
-        <Button onClick={handleClickA} type={'primary'}>
+        <Button onClick={handleClickAa} type={'primary'}>
           A
         </Button>
-        <Button danger onClick={handleClickB} type={'primary'}>
+        <Button danger onClick={handleClickBb} type={'primary'}>
           B
         </Button>
       </div>

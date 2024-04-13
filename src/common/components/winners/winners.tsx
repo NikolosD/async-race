@@ -28,9 +28,9 @@ export const Winners = ({}: Props) => {
     dispatch(fetchCars())
   }, [dispatch])
 
-  const dataSource = winners.winners.map((winner, index) => ({
+  const dataSource = winners.winners.map(winner => ({
     ...winner,
-    ...cars.cars[index],
+    ...cars.cars[winner.id - 1],
   }))
 
   const columns: TableProps['columns'] = [
@@ -70,7 +70,9 @@ export const Winners = ({}: Props) => {
         columns={columns}
         dataSource={dataSource}
         pagination={{
+          current: currentPage,
           onChange: handlePageChange,
+          pageSize: pageSize,
           total: totalWinnersCount,
         }}
       />

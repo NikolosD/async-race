@@ -15,13 +15,7 @@ export const Winners = ({}: Props) => {
   const dispatch = useAppDispatch()
   const winners = useSelector((state: RootState) => state.winners)
   const cars = useSelector((state: RootState) => state.cars)
-  const currentPage = useSelector((state: RootState) => state.winners.currentPage)
   const pageSize = useSelector((state: RootState) => state.winners.pageSize)
-  const totalWinnersCount = useSelector((state: RootState) => state.winners.totalWinnersCount)
-
-  const handlePageChange = (page: number) => {
-    dispatch(setCurrentWinnerPage(page))
-  }
 
   useEffect(() => {
     dispatch(fetchWinners())
@@ -70,10 +64,7 @@ export const Winners = ({}: Props) => {
         columns={columns}
         dataSource={dataSource}
         pagination={{
-          current: currentPage,
-          onChange: handlePageChange,
           pageSize: pageSize,
-          total: totalWinnersCount,
         }}
       />
     </>

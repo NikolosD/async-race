@@ -27,18 +27,14 @@ export const fetchWinners = createAsyncThunk(
 )
 
 type WinnersState = {
-  currentPage: number
   isLoading: boolean
   pageSize: number
-  totalWinnersCount: number
   winners: Winner[]
 }
 
 const initialState: WinnersState = {
-  currentPage: 1,
   isLoading: true,
   pageSize: 7,
-  totalWinnersCount: 1,
   winners: [],
 }
 
@@ -50,13 +46,9 @@ const slice = createSlice({
   },
   initialState,
   name: 'winners',
-  reducers: {
-    setCurrentWinnerPage: (state, action: PayloadAction<number>) => {
-      state.currentPage = action.payload
-    },
-  },
+  reducers: {},
 })
 
 export const winnersReducer = slice.reducer
 
-export const { setCurrentWinnerPage } = slice.actions
+export const {} = slice.actions

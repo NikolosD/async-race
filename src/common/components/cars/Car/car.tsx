@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
@@ -10,7 +11,13 @@ import { IoCarSport } from 'react-icons/io5'
 
 import s from './car.module.scss'
 
-export const Car = ({ color, id, name }: CarType) => {
+type Props = {
+  color: string
+  id: number
+  name: string
+}
+
+export const Car: FC<Props> = ({ color, id, name }) => {
   const car = useSelector((state: RootState) => state.car[id])
   const currentPosition = car ? car.position : 0
   const currentVelocity = car ? car.velocity : 0

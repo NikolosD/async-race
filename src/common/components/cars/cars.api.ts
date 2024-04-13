@@ -1,14 +1,6 @@
 import { instance } from '@/common/api/common.api'
 import { CarType } from '@/common/components/cars/cars.reducer'
 
-export type CarsApiResponse = {
-  data: CarType[]
-}
-
-export type CarApiResponse = {
-  data: CarType
-}
-
 type Winner = {
   id: number
   time: number
@@ -32,6 +24,19 @@ export const carsApi = {
   getWinner(carId: number) {
     return instance.get<Winner>(`/winners/${carId}`).then(response => response.data)
   },
+  getWinners(page?: number, limit?: number, sort?: string, order?: string) {
+    const queryParams = {
+      _limit: limit,
+      _order: order,
+      _page: page,
+      _sort: sort,
+    }
+
+    return instance
+      .get<Winner[]>('/winners', { params: queryParams })
+      .then(response => response.data)
+  },
+
   switchToDriveMode(id: number) {
     return instance
       .patch('/engine', null, {

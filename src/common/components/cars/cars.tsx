@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
@@ -9,10 +9,12 @@ import { Spin } from 'antd'
 
 import s from './cars.module.scss'
 
-export const Cars = () => {
-  const dispatch = useAppDispatch()
+type Props = {}
+export const Cars: FC<Props> = () => {
   const selectCars = (state: RootState) => state.cars
   const { cars, currentPage, pageSize } = useSelector(selectCars)
+  const dispatch = useAppDispatch()
+
   const isLoading = useSelector((state: RootState) => state.cars.isLoading)
 
   useEffect(() => {
@@ -31,8 +33,8 @@ export const Cars = () => {
   return (
     <>
       <div>
-        {currentCars.map(car => (
-          <Car color={car.color} id={car.id} key={car.id} name={car.name} />
+        {currentCars.map(({ color, id, name }) => (
+          <Car color={color} id={id} key={id} name={name} />
         ))}
       </div>
     </>

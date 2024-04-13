@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
 import { setCurrentPage } from '@/common/components/cars/cars.reducer'
-// import { setCurrentPage } from '@/components/cars/cars.reducer'
 import { Pagination } from 'antd'
 
 export const CustomPagination: React.FC = () => {

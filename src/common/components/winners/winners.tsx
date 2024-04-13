@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
-import { fetchCars } from '@/common/components/cars/cars.reducer'
+import { fetchCars, setCurrentPage } from '@/common/components/cars/cars.reducer'
 import { Menu } from '@/common/components/menu/menu'
-import { fetchWinners } from '@/common/components/winners/winners.reducer'
+import { fetchWinners, setCurrentWinnerPage } from '@/common/components/winners/winners.reducer'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { Table, TableProps } from 'antd'
 import { IoCarSport } from 'react-icons/io5'
@@ -14,7 +14,14 @@ type Props = {}
 export const Winners = ({}: Props) => {
   const dispatch = useAppDispatch()
   const winners = useSelector((state: RootState) => state.winners)
-  const cars = useSelector((state: RootState) => state.cars.cars)
+  const cars = useSelector((state: RootState) => state.cars)
+  const currentPage = useSelector((state: RootState) => state.winners.currentPage)
+  const pageSize = useSelector((state: RootState) => state.winners.pageSize)
+  const totalWinnersCount = useSelector((state: RootState) => state.winners.totalWinnersCount)
+
+  const handlePageChange = (page: number) => {
+    dispatch(setCurrentWinnerPage(page))
+  }
 
   useEffect(() => {
     dispatch(fetchWinners())
@@ -23,7 +30,7 @@ export const Winners = ({}: Props) => {
 
   const dataSource = winners.winners.map((winner, index) => ({
     ...winner,
-    ...cars[index],
+    ...cars.cars[index],
   }))
 
   const columns: TableProps['columns'] = [
@@ -59,7 +66,14 @@ export const Winners = ({}: Props) => {
     <>
       <Menu />
       <h1>WINNERS</h1>
-      <Table columns={columns} dataSource={dataSource} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        pagination={{
+          onChange: handlePageChange,
+          total: totalWinnersCount,
+        }}
+      />
     </>
   )
 }

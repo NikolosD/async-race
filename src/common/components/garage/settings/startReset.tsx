@@ -94,11 +94,16 @@ export const StartReset = () => {
       }
     } catch (error) {
       console.error('Error while creating/updating winner:', error)
+      try {
+        await carsApi.createWinner({ id: winner.id, time: winner.duration ?? 0, wins: newWins })
+      } catch (error) {
+        console.error('Error while creating winner:', error)
+      }
     }
 
     setTimeout(() => {
       Modal.success({
-        content: `The winner is car number ${winner.carName}`,
+        content: `The winner is car ${winner.carName}`,
         title: 'Race Finished',
       })
     }, duration)

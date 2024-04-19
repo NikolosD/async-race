@@ -1,13 +1,10 @@
 {
-  "homepage": "https://NikolosD.github.io/async-race",
   "name": "asyn-race",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
     "build": "tsc && vite build",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint src --ext .jsx,.js,.tsx,.ts --fix && stylelint \"src/**/*.{scss,css}\" --fix",

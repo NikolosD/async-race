@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
-import { fetchCars, setCurrentPage } from '@/common/components/cars/cars.reducer'
+import { fetchCars } from '@/common/components/cars/cars.reducer'
 import { Menu } from '@/common/components/menu/menu'
-import { fetchWinners, setCurrentWinnerPage } from '@/common/components/winners/winners.reducer'
+import { fetchWinners } from '@/common/components/winners/winners.reducer'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { Table, TableProps } from 'antd'
 import { IoCarSport } from 'react-icons/io5'
@@ -36,7 +36,7 @@ export const Winners = ({}: Props) => {
     {
       dataIndex: 'car',
       key: 'car',
-      render: (text, record) => <IoCarSport color={record.color} size={40} />,
+      render: (_text, record) => <IoCarSport color={record.color} size={40} />,
       title: 'Car',
     },
     {

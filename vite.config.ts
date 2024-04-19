@@ -5,7 +5,6 @@ import { defineConfig } from 'vite'
 import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  base: '/async-race/',
   plugins: [react()],
   resolve: {
     alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],

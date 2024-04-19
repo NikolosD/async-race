@@ -129,8 +129,8 @@ const slice = createSlice({
         }
       })
       .addCase(generateCars.fulfilled, (state, action) => {
+        // @ts-ignore
         state.cars.push(...action.payload)
-        state.totalCarsCount += action.payload.length
       })
   },
   initialState,

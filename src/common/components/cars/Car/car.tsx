@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from '@/app/store'
 import { setDuration } from '@/common/components/cars/Car/car.reducer'
-import { CarType, deleteCar, selectCar } from '@/common/components/cars/cars.reducer'
+import { deleteCar, selectCar } from '@/common/components/cars/cars.reducer'
 import { useAppDispatch } from '@/common/hooks/useAppDispatch'
 import { useHandleClick } from '@/common/hooks/useHandleClick'
 import { Button } from 'antd'

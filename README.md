@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Here's how you could describe your accomplishments in README.md:
 
-Currently, two official plugins are available:
+My Project
+Link to Deployed UI:
+https://async-race-three.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Project Score: 85 points
+Description
+This project is built using React and TypeScript. It serves as an interface for managing a garage and displaying winners in a racing competition.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Implemented Features
+Garage:
+CRUD operations for cars.
+Animations when manipulating cars.
+Pagination for the list of cars in the garage.
+Winners:
+Displaying a list of winners with pagination and sorting.
+Highlights
+The project is developed using ESLint to maintain code cleanliness and adhere to standards.
+Notes
+The application's organization needs refinement. While significant progress has been made in implementing functionality, attention should be paid to the logical structure of the application and potential areas for improving performance and scalability.
